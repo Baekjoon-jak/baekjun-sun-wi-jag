@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+import os
+
 def make_header():
     return {
         "referer": "https://www.acmicpc.net/",
@@ -6,6 +9,10 @@ def make_header():
     }
 
 def make_cookies():
+   
+
+    load_dotenv(verbose=True)
+
     return {
-        "bojautologin": "4ffd5e08576f268b43f170399a56c03097084bbd"
+        "bojautologin": os.getenv('AUTO_LOGIN')
     }

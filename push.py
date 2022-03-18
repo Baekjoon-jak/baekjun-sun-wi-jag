@@ -7,34 +7,16 @@ from parse import get_doc
 session = requests.Session()
 
 def get_csrf_key() -> str:
-    '''
-    세션의 csrf key를 가져옵니다.
-    '''
+
+    #세션의 csrf key를 가져옵니다.
+
     doc = get_doc(session, "https://www.acmicpc.net/submit/1000")
     return doc.xpath('//*[@name="csrf_key"]')[0].attrib["value"]
 
-def solving_submit(problem_id: int, code_open: Literal['open', 'close', 'onlyaccepted'], source: str, lang: int) -> bool:
-    '''
-    문제 답을 제출합니다.
+def solving_submit(problem_id: int, code_open: Literal['open', 'close', 'onlyaccepted'], source: str, lang: int) -> str:
 
-    Args:
-        lang: 
-            84 C++17,
-            28 Python 3,
-            73 PyPy3,
-            0 C99,
-            93 Java 11,
-            68 Ruby,
-            69 Kotlin (JVM),
-            74 Swift,
-            58 Text,
-            86 C#,
-            17 Node.JS,
-            12 Go,
-            29 D,
-            94 Rust 2018,
-            85 C++17 (Clang)
-    '''
+    # 문제 답을 제출합니다.
+
     res = session.post(f"https://www.acmicpc.net/submit/{problem_id}", 
         headers = make_header(),
         cookies = make_cookies(),
@@ -46,20 +28,30 @@ def solving_submit(problem_id: int, code_open: Literal['open', 'close', 'onlyacc
             "csrf_key": get_csrf_key()
         }
     )
-    return f"/submit/{problem_id}" not in res.url
+    if f"/submit/{problem_id}" not in res.url:
+        return f"성공 : {res.url}"
+    else:
+        return f"실패 : {res.text}"
 
 
-print(solving_submit(10998, 'close', '''
-#include<stdio.h>
 
-int main()
-{
-	int A, B;
-	scanf("%d %d", &A, &B);
+def get_code(source_id: int) -> str:
+    res = session.get(f"https://www.acmicpc.net/source/{source_id}", 
+        headers = make_header(),
+        cookies = make_cookies()
+    )
+    if f"/source/{source_id}" not in res.url:
+        return f"성공 : {res.url}"
+    else:
+        return f"실패 : {res.text}"
 
-	printf("%d", A * B);
 
-	return 0;
-}''', 0))
+
+# print(solving_submit(10998, 'close', '''
+# a, b = input().split()
+# print(int(a)*int(b))
+# ''', 28))
+
+print(get_code(16270136))
 
 session.close()

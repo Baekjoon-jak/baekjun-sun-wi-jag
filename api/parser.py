@@ -11,10 +11,3 @@ def get_doc(se: requests.Session, url: str):
         headers = make_header(),
         cookies = make_cookies()
     ))
-    
-def post_doc(se: requests.Session, url: str, data: any or None):
-    return parse_doc(se.post(url,
-        headers = make_header(),
-        cookies = make_cookies(),
-        data = data
-    ))

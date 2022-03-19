@@ -1,6 +1,6 @@
 import requests
 
-from parse import get_doc, post_doc
+from api.parser import get_doc
 
 session = requests.Session()
 

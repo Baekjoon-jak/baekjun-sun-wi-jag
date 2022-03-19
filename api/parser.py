@@ -11,3 +11,6 @@ def get_doc(se: requests.Session, url: str):
         headers = make_header(),
         cookies = make_cookies()
     ))
+
+def inner_text(tag):
+    return (tag.text or '') + ''.join(inner_text(e) for e in tag) + (tag.tail or '')

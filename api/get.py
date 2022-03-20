@@ -32,9 +32,9 @@ def get_problem_solving(session: requests.Session, solve_id: int) -> ProblemSolv
         "source": inner_text(doc.xpath('//textarea[@name="source"]')[0]),
         "user": inner_text(tr[1]),
         "result": inner_text(tr[4]),
-        "memory_used": to_int(tr[5].text),
-        "running_time": to_int(tr[6].text),
+        "memory_used": tr[5].text , # to_int(tr[5].text),
+        "running_time": tr[6].text , # to_int(tr[6].text),
         "language": tr[7].text,
-        "code_length": to_int(tr[8].text),
-        "sub_time": to_int(tr[9][0].attrib['data-timestamp'])
+        "code_length": tr[8].text , # to_int(tr[8].text),
+        "sub_time": tr[9][0].attrib['data-timestamp'] # to_int(tr[9][0].attrib['data-timestamp'])
     }

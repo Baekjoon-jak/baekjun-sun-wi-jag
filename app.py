@@ -11,7 +11,7 @@ session = requests.Session()
 for i in range(13000000, 350000, -1):
   result = get_problem_solving(session, i)
   if result != None:
-    if solving_submit(session, result["problem_id"], 'open', result["code"], result["lang"]):
+    if solving_submit(session, result["problem_id"], 'open', result["source"], result["language"]):
       print("🚀 성공")
       print(f"https://www.acmicpc.net/status?problem_id={result['problem_id']}")
     else:

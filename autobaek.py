@@ -6,6 +6,8 @@ from api.lang import code_to_lang
 def get_sources(folder: str) -> dict[int, dict[int, str]]:
     lsrc = {}
     for dir in os.listdir(folder):
+        if not os.path.isdir(dir) or '.git' in dir: continue
+
         lang_code = int(os.path.basename(dir))
         dir = os.path.join(folder, dir)
         codes = {}

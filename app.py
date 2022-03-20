@@ -30,7 +30,6 @@ for lang_code, source in sources.items():
   for problem_id, src_dir in source.items():
     if problem_id in solved_problems:
       print(f'이미 해결된 문제: {problem_id}')
-      time.sleep(3)
       continue
     try:  
       src = read_file(src_dir)
@@ -40,6 +39,6 @@ for lang_code, source in sources.items():
     except Exception as e:
       print(f'푸시 실패 {e}')
 
-    time.sleep(5)
-    
+    time.sleep(10)
+
 session.close()

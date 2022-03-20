@@ -7,7 +7,7 @@ from utils import try_get
 class UserInfo(NamedTuple):
     solved_problems: list[int]
 
-def get_user_right_problems(se: requests.Session, user: str) -> UserInfo or None:
+def get_user_info(se: requests.Session, user: str) -> UserInfo or None:
     '''사용자가 맞은 문제를 가져옵니다.'''
     doc = get_doc(se, f'https://www.acmicpc.net/user/{user}')
     if (doc == None): return None
@@ -15,8 +15,6 @@ def get_user_right_problems(se: requests.Session, user: str) -> UserInfo or None
     solved_problems = []
     for pb in try_get(doc.xpath('//div[@class="problem-list"]'), 0, []):
         solved_problems.append(int(pb.text))
-
-        
 
     return {
         "solved_problems": solved_problems

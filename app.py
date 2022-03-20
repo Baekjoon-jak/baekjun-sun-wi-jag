@@ -1,22 +1,45 @@
+import os
+import time
 from dotenv import load_dotenv
-from api.get import get_problem_solving
-from api.lang import lang_to_code
+from api.lang import code_to_lang
 from api.submit import solving_submit
 import requests
+from api.user import get_user_info
+
+from autobaek import get_sources
 
 load_dotenv(verbose=True)
-# auth는 load_dotenv 아래에 있어야함.
 session = requests.Session()
 
-for i in range(13000000, 350000, -1):
-  result = get_problem_solving(session, i)
-  if result != None:
-    if solving_submit(session, result["problem_id"], 'open', result["source"], result["language"]):
-      print("🚀 성공")
-      print(f"https://www.acmicpc.net/status?problem_id={result['problem_id']}")
-    else:
-      print("❗ 실패")
-  else:
-    print("❗ 실패")
 
+def read_file(path: str) -> str:
+  file = open(path, "r")
+  strings = file.read()
+  file.close()
+  return strings
+
+
+
+src_folder = input('소스파일 폴더: ')
+sources = get_sources(src_folder)
+solved_problems = get_user_info(session, os.getenv('USER_NAME'))["solved_problems"]
+
+for lang_code, source in sources.items():
+  print(f'푸시 할 언어: {code_to_lang(lang_code)}')
+
+  for problem_id, src_dir in source.items():
+    if problem_id in solved_problems:
+      print(f'이미 해결된 문제: {problem_id}')
+      time.sleep(3)
+      continue
+    try:  
+      src = read_file(src_dir)
+      print(f'문제: {problem_id}\n  --  소스  --  \n{src}\n  --  소스  --  ')
+      
+      solving_submit(session, problem_id, 'close', src, lang_code)
+    except Exception as e:
+      print(f'푸시 실패 {e}')
+
+    time.sleep(5)
+    
 session.close()

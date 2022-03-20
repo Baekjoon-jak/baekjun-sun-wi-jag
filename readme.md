@@ -19,3 +19,10 @@
   "C++17 (Clang)": 85
 }
 ```
+
+.env
+
+```v
+AUTO_LOGIN={TOKEN}
+USER_NAME={USERNAME}
+```

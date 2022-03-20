@@ -1,6 +1,7 @@
 def langChk(lang: str):
   langCode = {
     "C++17": 84,
+    "C++14": 84,
     "Python 3": 28,
     "PyPy3": 73,
     "C99": 0,

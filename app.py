@@ -10,8 +10,15 @@ from auth import make_cookies, make_header
 
 session = requests.Session()
 
-result = get_code(session, 16270136) #16270141, 16270136
+result = get_code(session, 16270141)
+if result != None:
 
-solving_submit(session, result["problem_id"], 'open', result["code"], result["lang"])
+  if solving_submit(session, result["problem_id"], 'open', result["code"], result["lang"]):
+    print("🚀 성공")
+    print(f"https://www.acmicpc.net/status?problem_id={result['problem_id']}")
+  else:
+    print("❗ 실패")
+else:
+  print("❗ 실패")
 
 session.close()

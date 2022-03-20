@@ -18,8 +18,6 @@ def get_code(session: requests.Session, source_id: int) -> str:
             problem_id = soup.select_one("body > div.wrapper > div.container.content > div.row > div:nth-child(8) > div > table > tbody > tr > td:nth-child(3) > a")
             lang = soup.select_one("body > div.wrapper > div.container.content > div.row > div:nth-child(8) > div > table > tbody > tr > td:nth-child(8)")
             return {"code": code.text, "problem_id": problem_id.text, "lang": lang.text}
-        else:
-            print("WA")
     else:
         print(f"status code: {res.status_code}")
 

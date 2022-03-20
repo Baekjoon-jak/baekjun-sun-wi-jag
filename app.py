@@ -9,6 +9,8 @@ from auth import make_cookies, make_header
 
 session = requests.Session()
 
-print(get_code(session,16270136))
+
+get_code(session,16270141) #16270141, 16270136
+
 
 session.close()

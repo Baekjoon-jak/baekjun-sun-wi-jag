@@ -20,7 +20,7 @@
 }
 ```
 
-.env
+## .env
 
 ```v
 AUTO_LOGIN={TOKEN}

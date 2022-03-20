@@ -1,5 +1,4 @@
-def langChk(lang: str):
-  langCode = {
+BaekJoonLanguages = {
     "C++17": 84,
     "C++14": 84, #확실하지 않음
     "C++98": 84, #확실하지 않음
@@ -21,5 +20,7 @@ def langChk(lang: str):
     "D": 29,
     "Rust 2018": 94,
     "C++17 (Clang)": 85
-  }
-  return langCode[lang]
+}
+
+def lang_to_code(lang: str):
+    return BaekJoonLanguages[lang]

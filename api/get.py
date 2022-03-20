@@ -1,15 +1,13 @@
 import requests
-from lxml import etree
+from auth import make_cookies, make_header
 
 
-from api.parser import get_doc, inner_text
-
-def get_csrf_key(session: requests.Session, problem_id: int) -> str:
-    '''세션의 csrf key를 가져옵니다.'''
-    doc = get_doc(session, f"https://www.acmicpc.net/submit/{problem_id}")
-    return doc.xpath('//*[@name="csrf_key"]')[0].attrib["value"]
-
-def get_problem_solving(session: requests.Session, solve_id: int):
-  '''문제 해결 머시기 가져옴'''
-  doc = get_doc(session, f"https://www.acmicpc.net/source/{solve_id}")
-  print(inner_text(doc.xpath('//textarea[@name="source"]')[0]))
+def get_code(session: requests.Session, source_id: int) -> str:
+    res = session.get(f"https://www.acmicpc.net/source/{source_id}", 
+        headers = make_header(),
+        cookies = make_cookies()
+    )
+    if f"/source/{source_id}" not in res.url:
+        return f"성공 : {res.url}"
+    else:
+        return f"실패 : {res.text}"

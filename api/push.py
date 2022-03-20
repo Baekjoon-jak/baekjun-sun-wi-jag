@@ -1,6 +1,6 @@
 from typing import Literal
 import requests
-from api.get import get_csrf_key
+from api.csrf import get_csrf_key
 from auth import make_cookies, make_header
 
 def solving_submit(session: requests.Session, problem_id: int, code_open: Literal['open', 'close', 'onlyaccepted'], source: str, lang: int) -> bool:

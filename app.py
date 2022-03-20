@@ -7,6 +7,7 @@ import requests
 from api.user import get_user_info
 
 from autobaek import get_sources
+from salt.code_salt import source_code_salting
 
 load_dotenv(verbose=True)
 session = requests.Session()
@@ -17,7 +18,6 @@ def read_file(path: str) -> str:
   strings = file.read()
   file.close()
   return strings
-
 
 
 src_folder = input('소스파일 폴더: ')
@@ -34,10 +34,13 @@ for lang_code, source in sources.items():
     try:  
       src = read_file(src_dir)
       print(f'문제: {problem_id}\n  --  소스  --  \n{src}\n  --  소스  --  ')
+
+      src = source_code_salting(src)
       
       solving_submit(session, problem_id, 'close', src, lang_code)
     except Exception as e:
       print(f'푸시 실패 {e}')
+      continue
 
     time.sleep(10)
 

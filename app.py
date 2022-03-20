@@ -19,9 +19,9 @@ start_time = 18 * 60
 # 푸시 시작 시간 분 단위
 end_time = 23.9 * 60
 # 딜레이 시간 초단위
-delay_time = 10
+delay_time = 10 * 60
 # 랜덤 시간 (-random ~ random) 초 단위
-random_time = 2
+random_time = 2 * 60
 
 src_folder = input('소스파일 폴더: ')
 sources = get_sources(src_folder)
